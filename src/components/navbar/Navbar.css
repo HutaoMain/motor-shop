@@ -47,3 +47,30 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+/* Add this CSS to style the dropdown */
+.nav-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content span {
+  padding: 10px 20px;
+  display: block;
+  color: black;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dropdown-content span:hover {
+  background-color: #f2f2f2;
+}

@@ -1,22 +1,23 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
+import { ProductInterface } from "../Types";
 
-interface CartItem {
-  id: string;
-  productName: string;
-  imageUrl: string;
-  description: string;
-  price: number;
-  quantity: number;
-  category: any;
-  sold: number;
-}
+// interface CartItem {
+//   id: string;
+//   productName: string;
+//   imageUrl: string;
+//   description: string;
+//   price: number;
+//   quantity: number;
+//   category: any;
+//   sold: number;
+// }
 
 interface CartStore {
-  items: CartItem[];
+  items: ProductInterface[];
   total: number;
-  addItem: (item: CartItem, quantity: number) => void;
+  addItem: (item: ProductInterface, quantity: number) => void;
   increaseItem: (id: string) => void;
   decreaseItem: (id: string) => void;
   removeItem: (id: string) => void;
@@ -50,7 +51,7 @@ export const useCartStore = create<CartStore>(
       //     }
       //   });
       // },
-      addItem: async (item: CartItem, quantity: number = 1) => {
+      addItem: async (item: ProductInterface, quantity: number = 1) => {
         try {
           const { data } = await axios.get(
             `${import.meta.env.VITE_APP_API_URL}/api/product/specificProduct/${
@@ -61,7 +62,7 @@ export const useCartStore = create<CartStore>(
 
           set((state: any) => {
             const index = state.items.findIndex(
-              (i: CartItem) => i.id === item.id
+              (i: ProductInterface) => i.id === item.id
             );
 
             if (index === -1) {

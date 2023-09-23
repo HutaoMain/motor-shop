@@ -1,14 +1,17 @@
 import "./App.css";
-import Header from "./components/header/Header";
+import { Routes, Route } from "react-router-dom";
+import ClientHome from "./pages/clientHome/ClientHome";
+import AdminProducts from "./pages/adminProducts/AdminProducts";
 import Navbar from "./components/navbar/Navbar";
-import ShopSection from "./components/shop_section/ShopSection";
-
 function App() {
   return (
     <>
       <Navbar />
-      <Header />
-      <ShopSection />
+      <Routes>
+        <Route path="/" element={<ClientHome />} />
+        {/* admin */}
+        <Route path="/admin/products" element={<AdminProducts />} />
+      </Routes>
     </>
   );
 }
