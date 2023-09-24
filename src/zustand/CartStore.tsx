@@ -54,7 +54,7 @@ export const useCartStore = create<CartStore>(
       addItem: async (item: ProductInterface, quantity: number = 1) => {
         try {
           const { data } = await axios.get(
-            `${import.meta.env.VITE_APP_API_URL}/api/product/specificProduct/${
+            `${import.meta.env.VITE_APP_BASE_URL}/api/product/specificProduct/${
               item.id
             }`
           );
@@ -98,7 +98,7 @@ export const useCartStore = create<CartStore>(
       increaseItem: async (id: string) => {
         const { data } = await axios.get(
           `${
-            import.meta.env.VITE_APP_API_URL
+            import.meta.env.VITE_APP_BASE_URL
           }/api/product/specificProduct/${id}`
         );
         const productQuantity = data.quantity;

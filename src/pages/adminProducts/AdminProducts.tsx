@@ -25,14 +25,14 @@ const AdminProducts = () => {
     queryKey: ["Product"],
     queryFn: () =>
       axios
-        .get(`${import.meta.env.VITE_APP_API_URL}/api/product/list`)
+        .get(`${import.meta.env.VITE_APP_BASE_URL}/api/product/list`)
         .then((res) => res.data),
   });
 
   const handleDelete = async (productId: string) => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_APP_API_URL}/api/product/delete/${productId}`
+        `${import.meta.env.VITE_APP_BASE_URL}/api/product/delete/${productId}`
       );
       window.location.reload();
     } catch (error) {

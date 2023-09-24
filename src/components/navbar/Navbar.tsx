@@ -6,11 +6,13 @@ import Checkout from "../checkout/Checkout";
 import { useState } from "react";
 import { Badge } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useCartStore } from "../../zustand/CartStore";
 
 const Navbar = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [showManagementDropdown, setShowManagementDropdown] =
     useState<boolean>(false);
+  const cart = useCartStore((state) => state.items);
 
   const showDrawer = () => {
     setOpen(true);
@@ -55,7 +57,11 @@ const Navbar = () => {
         </section>
         <section className="nav-action-container">
           <button className="nav-btn">LOGIN</button>
-          <Badge badgeContent={4} color="primary" onClick={showDrawer}>
+          <Badge
+            badgeContent={cart.length}
+            color="primary"
+            onClick={showDrawer}
+          >
             <LocalMall sx={{ color: "black" }} />
           </Badge>
         </section>

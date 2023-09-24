@@ -9,7 +9,7 @@ const ShopSection = () => {
     queryKey: ["client-products"],
     queryFn: () =>
       axios
-        .get(`${import.meta.env.VITE_APP_API_URL}/api/product/list`)
+        .get(`${import.meta.env.VITE_APP_BASE_URL}/api/product/list`)
         .then((res) => res.data),
   });
 

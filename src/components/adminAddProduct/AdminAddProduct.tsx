@@ -54,7 +54,7 @@ const AdminAddProduct = ({ toggleProductModal }: props) => {
       console.log(url);
 
       await axios.post(
-        `${import.meta.env.VITE_APP_API_URL}/api/product/create`,
+        `${import.meta.env.VITE_APP_BASE_URL}/api/product/create`,
         {
           ...addProductInfo,
           productImage: url,
