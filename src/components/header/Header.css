@@ -1,7 +1,7 @@
 .header {
   background-image: url("../../assets/wallpaper.jpg");
   height: calc(100vh - (80px));
-  width: 100%;
+  width: 100vw;
 
   background-blend-mode: darken;
   background-color: rgba(0, 0, 0, 0.9);

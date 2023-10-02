@@ -3,18 +3,24 @@ import { LocalMall, Add, Remove } from "@mui/icons-material";
 import React from "react";
 import { ProductInterface } from "../../Types";
 import Rating from "@mui/material/Rating";
+import { useCartStore } from "../../zustand/CartStore";
 
 interface Props {
   product: ProductInterface;
 }
 
 const ProductCard: React.FC<Props> = ({ product }) => {
+  // const [quantity, setQuantity] = useState<number>(1);
+  const addItem = useCartStore((state) => state.addItem);
+  const handleAddProductToCart = () => {
+    addItem(product, 1);
+  };
   return (
     <div className="product-card">
       <section className="product-image-container">
         <img
           className="product-image"
-          src={product.imageUrl}
+          src={product.productImage}
           alt={product.productName}
         />
       </section>
@@ -40,7 +46,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             <input type="number" className="product-amount" min="1" value={1} />
             <Add sx={{ cursor: "pointer", fontSize: "20px" }} />
           </div>
-          <div>
+          <div onClick={handleAddProductToCart}>
             <LocalMall sx={{ fontSize: "30px", cursor: "pointer" }} />
           </div>
         </section>
