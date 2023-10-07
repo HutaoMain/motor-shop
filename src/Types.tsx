@@ -25,6 +25,29 @@ export interface ProductInterface {
   category: string;
 }
 
+export interface OrderInterface {
+  id: string;
+  email: string;
+  // userFullName: string;
+  totalPrice: string;
+  orderList: string;
+  status: string;
+  paymentMethod: string;
+  receipt: string;
+  // contactNumber: string;
+  orderDate: string;
+}
+
+export interface SingleOrderItemInterface {
+  id: string;
+  productName: string;
+  productImage: string;
+  description: string;
+  price: number;
+  quantity: number;
+  // sold: number;
+}
+
 // reusable transition effect only
 import React from "react";
 import { TransitionProps } from "@mui/material/transitions";

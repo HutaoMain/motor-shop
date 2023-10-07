@@ -1,3 +1,4 @@
+import "./AdminProducts.css";
 import {
   Dialog,
   DialogContent,
@@ -9,20 +10,32 @@ import {
   TableRow,
 } from "@mui/material";
 import { useQuery } from "react-query";
-import { ProductInterface } from "../../Types";
+import { ProductInterface, Transition } from "../../Types";
 import axios from "axios";
 import { useState } from "react";
 import AdminAddProduct from "../../components/adminAddProduct/AdminAddProduct";
+import AdminUpdateProduct from "../../components/adminUpdateProduct/AdminUpdateProduct";
 
 const AdminProducts = () => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [openAdd, setOpenAdd] = useState<boolean>(false);
+  const [openUpdate, setOpenUpdate] = useState<boolean>(false);
+  const [paramsId, setParamsId] = useState<string>("");
+
+  const toggleModalUpdateProduct = (id: string) => {
+    setParamsId(id);
+    setOpenUpdate(true);
+  };
+
+  const toggleCloseUpdate = () => {
+    setOpenUpdate(false);
+  };
 
   const toggleModal = () => {
-    setOpen(false);
+    setOpenAdd(false);
   };
 
   const { data } = useQuery<ProductInterface[]>({
-    queryKey: ["Product"],
+    queryKey: ["AdminProducts"],
     queryFn: () =>
       axios
         .get(`${import.meta.env.VITE_APP_BASE_URL}/api/product/list`)
@@ -53,28 +66,28 @@ const AdminProducts = () => {
         className="product"
         style={{ maxWidth: "1100px", width: "100%" }}
       >
-        <button className="product-add-btn" onClick={() => setOpen(true)}>
+        <button className="product-add-btn" onClick={() => setOpenAdd(true)}>
           Add Product
         </button>
-        <Table className="product-table">
-          <TableHead className="product-tablehead">
-            <TableRow>
-              <TableCell className="assessment-header" align="center">
+        <Table className="admin-order-table">
+          <TableHead className="admin-order-table-header">
+            <TableRow className="admin-order-header-table-row">
+              <TableCell className="table-header" align="center">
                 Name
               </TableCell>
-              <TableCell className="assessment-header" align="center">
+              <TableCell className="table-header" align="center">
                 Image
               </TableCell>
-              <TableCell className="assessment-header" align="center">
+              <TableCell className="table-header" align="center">
                 Description
               </TableCell>
-              <TableCell className="assessment-header" align="center">
+              <TableCell className="table-header" align="center">
                 Price
               </TableCell>
-              <TableCell className="assessment-header" align="center">
+              <TableCell className="table-header" align="center">
                 Quantity
               </TableCell>
-              <TableCell className="assessment-header" align="center">
+              <TableCell className="table-header" align="center">
                 Action Button
               </TableCell>
             </TableRow>
@@ -82,32 +95,60 @@ const AdminProducts = () => {
           <TableBody className="product-tablebody">
             {data?.map((item) => (
               <TableRow key={item.id}>
-                <TableCell align="center">{item.productName}</TableCell>
-                <TableCell align="center">
+                <TableCell className="table-header" align="center">
+                  {item.productName}
+                </TableCell>
+                <TableCell className="table-header" align="center">
                   <img
                     src={item.productImage}
                     alt=""
                     className="product-image"
                   />
                 </TableCell>
-                <TableCell align="center">{item.description}</TableCell>
-                <TableCell align="center">{item.price}</TableCell>
-                <TableCell align="center">{item.quantity}</TableCell>
-                <TableCell align="center">
+                <TableCell className="table-header" align="center">
+                  {item.description}
+                </TableCell>
+                <TableCell className="table-header" align="center">
+                  ₱{item.price}
+                </TableCell>
+                <TableCell className="table-header" align="center">
+                  {item.quantity}
+                </TableCell>
+                <TableCell className="table-header" align="center">
                   <button
-                    className="product-btn"
+                    className="admin-order-btn"
+                    onClick={() => toggleModalUpdateProduct(item.id)}
+                    style={{ backgroundColor: "blue" }}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="admin-order-btn"
                     onClick={() => handleDelete(item.id)}
                     style={{ backgroundColor: "red" }}
                   >
                     Delete
                   </button>
                 </TableCell>
+                <Dialog
+                  open={openUpdate}
+                  onClose={toggleCloseUpdate}
+                  TransitionComponent={Transition}
+                  keepMounted
+                >
+                  <DialogContent>
+                    <AdminUpdateProduct
+                      toggleModalUpdateProduct={toggleCloseUpdate}
+                      paramsId={paramsId}
+                    />
+                  </DialogContent>
+                </Dialog>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog open={open} onClose={toggleModal}>
+      <Dialog open={openAdd} onClose={toggleModal}>
         <DialogContent>
           <AdminAddProduct toggleProductModal={toggleModal} />
         </DialogContent>

@@ -2,7 +2,6 @@ import axios from "axios";
 import { ProductInterface } from "../../Types";
 import "./AdminAddProduct.css";
 import { Close, Check } from "@mui/icons-material";
-// import { useQuery } from "react-query";
 import React, { useState } from "react";
 
 interface props {
@@ -10,14 +9,6 @@ interface props {
 }
 
 const AdminAddProduct = ({ toggleProductModal }: props) => {
-  //   const { data } = useQuery<CategoryInterface[]>({
-  //     queryKey: ["addProduct"],
-  //     queryFn: async () =>
-  //       await axios
-  //         .get(`${import.meta.env.VITE_APP_API_URL}/api/category/list`)
-  //         .then((res) => res.data),
-  //   });
-
   const [ImageFile, setImageFile] = useState<string>("");
   const [addProductInfo, setAddProductInfo] = useState<ProductInterface>({
     id: "",

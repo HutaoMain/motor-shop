@@ -21,6 +21,7 @@ const Navbar = () => {
 
   const cart = useCartStore((state) => state.items);
   const user = useAuthStore((state) => state.user);
+  const clearUser = useAuthStore((state) => state.clearUser);
 
   useEffect(() => {
     const fetch = async () => {
@@ -80,7 +81,9 @@ const Navbar = () => {
                   <Link style={{ textDecoration: "none" }} to="/admin/products">
                     <span>PRODUCT MANAGEMENT</span>
                   </Link>
-                  <span>ITEM 2</span>
+                  <Link style={{ textDecoration: "none" }} to="/admin/orders">
+                    <span>ORDER MANAGEMENT</span>
+                  </Link>
                   <span>ITEM 3</span>
                 </div>
               )}
@@ -89,7 +92,10 @@ const Navbar = () => {
         </section>
         <section className="nav-action-container">
           {user ? (
-            <span>{user}</span>
+            <div className="navbar-user-logout-container">
+              <span>{user}</span>
+              <button onClick={clearUser}>Logout</button>
+            </div>
           ) : (
             <button className="nav-btn" onClick={toggleLoginModal}>
               LOGIN
@@ -97,6 +103,7 @@ const Navbar = () => {
           )}
           <Badge
             badgeContent={cart.length}
+            sx={{ cursor: "pointer" }}
             color="primary"
             onClick={showDrawer}
           >
@@ -112,7 +119,6 @@ const Navbar = () => {
       >
         <DialogContent>
           <Login />
-          {/* toggleLoginModal={toggleLoginModal} */}
         </DialogContent>
       </Dialog>
       <Drawer placement="right" onClose={onCloseDrawer} open={open}>

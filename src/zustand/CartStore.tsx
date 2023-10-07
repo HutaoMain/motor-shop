@@ -3,17 +3,6 @@ import { persist } from "zustand/middleware";
 import axios from "axios";
 import { ProductInterface } from "../Types";
 
-// interface CartItem {
-//   id: string;
-//   productName: string;
-//   imageUrl: string;
-//   description: string;
-//   price: number;
-//   quantity: number;
-//   category: any;
-//   sold: number;
-// }
-
 interface CartStore {
   items: ProductInterface[];
   total: number;
@@ -28,29 +17,6 @@ export const useCartStore = create<CartStore>(
     (set) => ({
       items: [],
       total: 0,
-      // addItem: (item: CartItem, quantity: number = 1) => {
-      //   set((state: any) => {
-      //     const index = state.items.findIndex(
-      //       (i: CartItem) => i.id === item.id
-      //     );
-
-      //     if (index === -1) {
-      //       // Item not in cart yet, add it as a new item
-      //       return {
-      //         items: [...state.items, { ...item, quantity }],
-      //         total: state.total + item.price * quantity,
-      //       };
-      //     } else {
-      //       // Item already in cart, update its quantity
-      //       const newItems = [...state.items];
-      //       newItems[index].quantity += quantity;
-      //       return {
-      //         items: newItems,
-      //         total: state.total + item.price * quantity,
-      //       };
-      //     }
-      //   });
-      // },
       addItem: async (item: ProductInterface, quantity: number = 1) => {
         try {
           const { data } = await axios.get(
@@ -66,7 +32,6 @@ export const useCartStore = create<CartStore>(
             );
 
             if (index === -1) {
-              // Item not in cart yet, add it as a new item
               if (quantity > productQuantity) {
                 quantity = productQuantity;
               }
@@ -75,7 +40,6 @@ export const useCartStore = create<CartStore>(
                 total: state.total + item.price * quantity,
               };
             } else {
-              // Item already in cart, update its quantity
               const newQuantity = state.items[index].quantity + quantity;
               if (newQuantity > productQuantity) {
                 quantity = productQuantity - state.items[index].quantity;
@@ -92,9 +56,6 @@ export const useCartStore = create<CartStore>(
           console.error(error);
         }
       },
-
-      // increasing the product
-      // increasing the product
       increaseItem: async (id: string) => {
         const { data } = await axios.get(
           `${
