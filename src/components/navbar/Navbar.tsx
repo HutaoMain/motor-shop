@@ -78,13 +78,18 @@ const Navbar = () => {
                       : { display: "none" }
                   }
                 >
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to="/admin/dashboard"
+                  >
+                    <span>DASHBOARD</span>
+                  </Link>
                   <Link style={{ textDecoration: "none" }} to="/admin/products">
                     <span>PRODUCT MANAGEMENT</span>
                   </Link>
                   <Link style={{ textDecoration: "none" }} to="/admin/orders">
                     <span>ORDER MANAGEMENT</span>
                   </Link>
-                  <span>ITEM 3</span>
                 </div>
               )}
             </div>

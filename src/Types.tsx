@@ -48,6 +48,11 @@ export interface SingleOrderItemInterface {
   // sold: number;
 }
 
+export interface ITopFiveCustomerInterface {
+  email: string;
+  orderCount: number;
+}
+
 // reusable transition effect only
 import React from "react";
 import { TransitionProps } from "@mui/material/transitions";
