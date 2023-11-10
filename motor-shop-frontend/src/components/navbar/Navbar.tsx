@@ -87,6 +87,7 @@ const Navbar = () => {
                   <Link style={{ textDecoration: "none" }} to="/admin/products">
                     <span>PRODUCT MANAGEMENT</span>
                   </Link>
+
                   <Link style={{ textDecoration: "none" }} to="/admin/orders">
                     <span>ORDER MANAGEMENT</span>
                   </Link>
@@ -100,11 +101,11 @@ const Navbar = () => {
               )}
             </div>
           )}
-          {/* {userData?.userRole === "ROLE_USER" && ( */}
-          <Link style={{ textDecoration: "none" }} to="/client/orders">
-            <span className="nav-link">ORDERS</span>
-          </Link>
-          {/* )} */}
+          {userData?.userRole === "ROLE_USER" && (
+            <Link style={{ textDecoration: "none" }} to="/client/orders">
+              <span className="nav-link">ORDERS</span>
+            </Link>
+          )}
         </section>
         <section className="nav-action-container">
           {user ? (
