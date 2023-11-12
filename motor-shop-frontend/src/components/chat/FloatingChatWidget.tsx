@@ -66,6 +66,7 @@ const FloatingChatWidget = () => {
     const frankDocRef = doc(db, "conversation", user || "");
 
     try {
+      // TODO: put condition here for setDoc
       await setDoc(frankDocRef, {});
 
       await addDoc(chatCollectionRef, {
