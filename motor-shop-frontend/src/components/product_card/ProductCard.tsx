@@ -1,6 +1,6 @@
 import "./ProductCard.css";
-import { LocalMall, Add, Remove } from "@mui/icons-material";
-import React, { useState } from "react";
+import { LocalMall } from "@mui/icons-material";
+// import React, { useState } from "react";
 import { ProductInterface } from "../../Types";
 // import Rating from "@mui/material/Rating";
 // import { useCartStore } from "../../zustand/CartStore";
@@ -10,8 +10,8 @@ interface Props {
   product: ProductInterface;
 }
 
-const ProductCard: React.FC<Props> = ({ product }) => {
-  const [quantity, setQuantity] = useState<number>(1);
+const ProductCard = ({ product }: Props) => {
+  // const [quantity, setQuantity] = useState<number>(1);
   // const addItem = useCartStore((state) => state.addItem);
 
   // useEffect(() => {
@@ -58,7 +58,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
           </div> */}
         </section>
         <section className="product-btns">
-          <div className="product-quantity-btn">
+          {/* <div className="product-quantity-btn">
             <Remove
               sx={{ cursor: "pointer", fontSize: "20px" }}
               // onClick={() => handleQuantity("dec")}
@@ -85,7 +85,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
               sx={{ cursor: "pointer", fontSize: "20px" }}
               // onClick={() => handleQuantity("inc")}
             />
-          </div>
+          </div> */}
           <div onClick={() => handleAddProductToCart(product.id)}>
             <LocalMall sx={{ fontSize: "30px", cursor: "pointer" }} />
           </div>

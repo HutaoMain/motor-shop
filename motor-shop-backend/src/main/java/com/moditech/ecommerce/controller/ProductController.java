@@ -1,6 +1,7 @@
 package com.moditech.ecommerce.controller;
 
 import com.moditech.ecommerce.dto.ProductDto;
+import com.moditech.ecommerce.dto.TopSoldProductDto;
 import com.moditech.ecommerce.model.Product;
 import com.moditech.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,13 @@ public class ProductController {
     }
 
     @GetMapping("/bestProducts")
-    private List<Product> getBestProducts() {
+    private List<TopSoldProductDto> getBestProducts() {
         return productService.getTopSoldProducts();
+    }
+
+    @GetMapping("/getProductsWithZeroSold")
+    private List<TopSoldProductDto> getProductsWithZeroSold() {
+        return productService.getProductsWithZeroSold();
     }
 
     @GetMapping("/specificProduct/{id}")
@@ -56,4 +62,11 @@ public class ProductController {
         Product products = productService.addProductVariation(id, product);
         return ResponseEntity.ok(products);
     }
+
+    @GetMapping("/isAd")
+    private ResponseEntity<List<Product>> getProductsByIsAd() {
+        List<Product> product = productService.getProductsByIsAd();
+        return ResponseEntity.ok(product);
+    }
+
 }

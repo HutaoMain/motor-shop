@@ -32,6 +32,30 @@ export interface ProductInterface {
       sold: number;
     }
   ];
+  totalSold: number;
+}
+
+export interface OrderProductInterface {
+  product: {
+    id: string;
+    barcode: string;
+    productName: string;
+    productImage: string;
+    description: string;
+    isAd: string;
+    productVariationsList: [
+      {
+        variationName: string;
+        price: number;
+        imgUrl: string;
+        quantity: number;
+        description: string;
+        sold: number;
+      }
+    ];
+  };
+  variationIndex: number;
+  quantity: number;
 }
 
 export interface ProductVarianceInteface {
@@ -46,13 +70,13 @@ export interface ProductVarianceInteface {
 export interface OrderInterface {
   id: string;
   email: string;
-  // userFullName: string;
   totalPrice: string;
   orderList: string;
   status: string;
   paymentMethod: string;
   receipt: string;
-  // contactNumber: string;
+  contactNumber: string;
+  address: string;
   orderDate: string;
 }
 

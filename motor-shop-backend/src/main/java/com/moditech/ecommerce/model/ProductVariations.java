@@ -1,7 +1,9 @@
 package com.moditech.ecommerce.model;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 @Data
@@ -13,7 +15,7 @@ public class ProductVariations {
 
     private String imgUrl;
 
-    private Long quantity;
+    private Integer quantity;
 
     private String description;
 

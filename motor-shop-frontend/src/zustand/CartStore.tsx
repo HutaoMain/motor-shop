@@ -14,9 +14,9 @@ interface CartStore {
     variationIndex: number,
     quantity: number
   ) => void;
-  increaseItem: (id: string) => void;
-  decreaseItem: (id: string) => void;
-  removeItem: (id: string) => void;
+  increaseItem: (index: number) => void;
+  decreaseItem: (index: number) => void;
+  removeItem: (index: number) => void;
 }
 
 export const useCartStore = create<CartStore>(
@@ -66,21 +66,17 @@ export const useCartStore = create<CartStore>(
           console.error(error);
         }
       },
-      increaseItem: (id: string) => {
+      increaseItem: (index: number) => {
         set((state: any) => {
-          const cartItem = state.items.find(
-            (item: any) => item.product.id === id
-          );
+          const cartItem = state.items[index];
           const productQuantity =
             cartItem.product.productVariationsList[cartItem.variationIndex]
               .quantity;
 
           if (productQuantity > cartItem.quantity) {
             return {
-              items: state.items.map((item: any) =>
-                item.product.id === id
-                  ? { ...item, quantity: item.quantity + 1 }
-                  : item
+              items: state.items.map((item: any, i: number) =>
+                i === index ? { ...item, quantity: item.quantity + 1 } : item
               ),
               total:
                 state.total +
@@ -93,37 +89,40 @@ export const useCartStore = create<CartStore>(
           }
         });
       },
-      decreaseItem: (id: string) => {
+      decreaseItem: (index: number) => {
         set((state: any) => {
-          const cartItem = state.items.find(
-            (item: any) => item.product.id === id
-          )!;
+          const cartItem = state.items[index];
 
-          const newItems =
-            cartItem.quantity === 1
-              ? state.items.filter((item: any) => item.product.id !== id)
-              : state.items.map((item: any) =>
-                  item.product.id === id
-                    ? { ...item, quantity: item.quantity - 1 }
-                    : item
-                );
-
-          return {
-            items: newItems,
-            total:
-              state.total -
-              cartItem.product.productVariationsList[cartItem.variationIndex]
-                .price,
-          };
+          if (cartItem.quantity === 1) {
+            const newItems = state.items.filter(
+              (_: any, i: number) => i !== index
+            );
+            return {
+              items: newItems,
+              total:
+                state.total -
+                cartItem.product.productVariationsList[cartItem.variationIndex]
+                  .price,
+            };
+          } else {
+            const newItems = state.items.map((item: any, i: number) =>
+              i === index ? { ...item, quantity: item.quantity - 1 } : item
+            );
+            return {
+              items: newItems,
+              total:
+                state.total -
+                cartItem.product.productVariationsList[cartItem.variationIndex]
+                  .price,
+            };
+          }
         });
       },
-      removeItem: (id: string) => {
+      removeItem: () => {
         set((state: any) => {
-          const cartItem = state.items.find(
-            (item: any) => item.product.id === id
-          )!;
+          const cartItem = state.items[0];
           return {
-            items: state.items.filter((item: any) => item.product.id !== id),
+            items: state.items.filter((item: any) => item !== cartItem),
             total:
               state.total -
               cartItem.product.productVariationsList[cartItem.variationIndex]
