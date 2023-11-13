@@ -17,12 +17,30 @@ export interface UserInterface {
 
 export interface ProductInterface {
   id: string;
+  barcode: string;
   productName: string;
   productImage: string;
   description: string;
+  isAd: string;
+  productVariationsList: [
+    {
+      variationName: string;
+      price: number;
+      imgUrl: string;
+      quantity: number;
+      description: string;
+      sold: number;
+    }
+  ];
+}
+
+export interface ProductVarianceInteface {
+  variationName: string;
   price: number;
+  imgUrl: string;
   quantity: number;
-  category: string;
+  description: string;
+  sold: number;
 }
 
 export interface OrderInterface {
@@ -66,6 +84,19 @@ export interface IMessage {
   message: string;
   isUser: boolean;
   createdAt: Date;
+}
+
+export interface IAppointment {
+  id: string;
+  appointmentDate: string;
+  appointmentTime: string;
+  service: string;
+  email: string;
+  contactNumber: string;
+  createdAt: string;
+  status: string;
+  // userMarkAsRead: boolean;
+  // userNotification: boolean;
 }
 
 // reusable transition effect only

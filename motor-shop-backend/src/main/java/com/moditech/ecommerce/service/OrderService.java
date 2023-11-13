@@ -62,7 +62,7 @@ public class OrderService {
             Optional<Product> productOptional = productRepository.findById(pq.getProductId());
             if (productOptional.isPresent()) {
                 Product product = productOptional.get();
-                product.setQuantity(product.getQuantity() - pq.getQuantity());
+//                product.setQuantity(product.getQuantity() - pq.getQuantity());
                 productRepository.save(product);
             } else {
                 log.error("error in subtractProductsFromInventory");

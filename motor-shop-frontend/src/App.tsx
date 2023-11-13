@@ -14,6 +14,10 @@ import useAuthStore from "./zustand/AuthStore";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { UserInterface } from "./Types";
+import Calendar from "./components/calendar/Calendar";
+import AdminReservationList from "./pages/adminReservationList/AdminReservationList";
+import AdminProductVariation from "./pages/adminProductVariation/AdminProductVariation";
+import ProductSinglePage from "./pages/productSinglePage/ProductSinglePage";
 
 function App() {
   const user = useAuthStore((state) => state.user);
@@ -43,6 +47,14 @@ function App() {
           element={!userIsAdmin ? <ClientOrders /> : <Navigate to="/" />}
         />
         <Route
+          path="/client/reservations"
+          element={!userIsAdmin ? <Calendar /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/client/product/:id"
+          element={!userIsAdmin ? <ProductSinglePage /> : <Navigate to="/" />}
+        />
+        <Route
           path="/admin/dashboard"
           element={userIsAdmin ? <AdminDashboard /> : <Navigate to="/" />}
         />
@@ -61,6 +73,16 @@ function App() {
         <Route
           path="/admin/chat-support"
           element={userIsAdmin ? <AdminSupport /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/reservations"
+          element={userIsAdmin ? <AdminReservationList /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/products/:id"
+          element={
+            userIsAdmin ? <AdminProductVariation /> : <Navigate to="/" />
+          }
         />
       </Routes>
       <ToastContainer />

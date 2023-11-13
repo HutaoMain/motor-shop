@@ -1,11 +1,16 @@
 package com.moditech.ecommerce.dto;
 
+import com.moditech.ecommerce.model.ProductVariations;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ProductDto {
 
     private String id;
+
+    private String barcode;
 
     private String productName;
 
@@ -13,11 +18,7 @@ public class ProductDto {
 
     private String description;
 
-    private Double price;
+    private String isAd = "false";
 
-    private Integer quantity;
-
-    private String category;
-
-    private Integer sold;
+    private List<ProductVariations> productVariationsList;
 }

@@ -1,11 +1,11 @@
 import Header from "../../components/header/Header";
-import ShopSection from "../../components/shop_section/ShopSection";
+import RecommendedProducts from "../../components/recommendedProducts.tsx/RecommendedProducts";
 
 const ClientHome = () => {
   return (
     <>
       <Header />
-      <ShopSection />
+      <RecommendedProducts />
     </>
   );
 };

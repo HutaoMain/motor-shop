@@ -9,6 +9,7 @@ import {
   onSnapshot,
   doc,
   setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../../FirebaseConfig";
 import useAuthStore from "../../zustand/AuthStore";
@@ -63,11 +64,14 @@ const FloatingChatWidget = () => {
       createdAt: new Date(),
     };
 
-    const frankDocRef = doc(db, "conversation", user || "");
+    const userDocRef = doc(db, "conversation", user || "");
 
     try {
-      // TODO: put condition here for setDoc
-      await setDoc(frankDocRef, {});
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (!userDocSnap.exists()) {
+        await setDoc(userDocRef, {});
+      }
 
       await addDoc(chatCollectionRef, {
         ...message,

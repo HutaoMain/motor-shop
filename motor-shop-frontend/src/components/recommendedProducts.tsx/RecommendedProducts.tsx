@@ -1,15 +1,15 @@
-import "./ShopSection.css";
+import "./RecommendedProducts.css";
 import ProductCard from "../product_card/ProductCard";
 import { ProductInterface } from "../../Types";
 import { useQuery } from "react-query";
 import axios from "axios";
 
-const ShopSection = () => {
+const RecommendedProducts = () => {
   const { data } = useQuery<ProductInterface[]>({
-    queryKey: ["client-products"],
+    queryKey: ["RecommendedProducts"],
     queryFn: () =>
       axios
-        .get(`${import.meta.env.VITE_APP_BASE_URL}/api/product/list`)
+        .get(`${import.meta.env.VITE_APP_BASE_URL}/api/product/bestProducts`)
         .then((res) => res.data),
   });
 
@@ -29,4 +29,4 @@ const ShopSection = () => {
   );
 };
 
-export default ShopSection;
+export default RecommendedProducts;
