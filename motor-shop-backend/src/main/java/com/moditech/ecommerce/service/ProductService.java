@@ -13,6 +13,8 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -138,5 +140,13 @@ public class ProductService {
         String isAd = "true";
 
         return productRepository.findByIsAd(isAd);
+    }
+
+
+    private long monthlyTimestamp = 30;
+
+    public List<Product> getProductsWithinLastMonth() {
+        LocalDateTime oneMonthAgo = LocalDateTime.now().minus(monthlyTimestamp, ChronoUnit.DAYS);
+        return productRepository.findByCreatedAtAfter(oneMonthAgo);
     }
 }
