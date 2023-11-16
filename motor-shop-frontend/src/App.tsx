@@ -18,6 +18,7 @@ import Calendar from "./components/calendar/Calendar";
 import AdminReservationList from "./pages/adminReservationList/AdminReservationList";
 import AdminProductVariation from "./pages/adminProductVariation/AdminProductVariation";
 import ProductSinglePage from "./pages/productSinglePage/ProductSinglePage";
+import ShopSection from "./components/shop_section/ShopSection";
 
 function App() {
   const user = useAuthStore((state) => state.user);
@@ -50,10 +51,8 @@ function App() {
           path="/client/reservations"
           element={!userIsAdmin ? <Calendar /> : <Navigate to="/" />}
         />
-        <Route
-          path="/client/product/:id"
-          element={!userIsAdmin ? <ProductSinglePage /> : <Navigate to="/" />}
-        />
+        <Route path="/client/product/:id" element={<ProductSinglePage />} />
+        <Route path="/client/shop" element={<ShopSection />} />
         <Route
           path="/admin/dashboard"
           element={userIsAdmin ? <AdminDashboard /> : <Navigate to="/" />}

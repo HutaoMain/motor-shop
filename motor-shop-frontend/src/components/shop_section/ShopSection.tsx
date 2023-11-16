@@ -16,9 +16,6 @@ const ShopSection = () => {
   return (
     <div className="shop-section">
       <div className="shop-section-container">
-        <h1 className="shop-section-title" style={{ paddingBottom: "20px" }}>
-          RECOMMENDED PRODUCTS
-        </h1>
         <section className="shop-products-section">
           {data?.map((product) => (
             <ProductCard key={product.id} product={product} />

@@ -26,4 +26,11 @@ public class EmailController {
         response.sendRedirect(frontEndBaseUrl);
         return ResponseEntity.ok("Email sent");
     }
+
+    @PostMapping("/sendEmail/{email}")
+    private ResponseEntity<String> sendEmail(@PathVariable String email, HttpServletResponse response) throws IOException {
+        emailService.sendEmail(email);
+        response.sendRedirect(frontEndBaseUrl);
+        return ResponseEntity.ok("Email sent");
+    }
 }

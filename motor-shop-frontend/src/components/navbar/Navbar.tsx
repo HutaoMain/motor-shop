@@ -64,7 +64,12 @@ const Navbar = () => {
             HOME
           </span>
           <span className="nav-link">ABOUT</span>
-          <span className="nav-link">SHOP</span>
+          <Link
+            to="/client/shop"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <span className="nav-link">SHOP</span>
+          </Link>
           <Link
             to="/client/reservations"
             style={{ textDecoration: "none", color: "black" }}
