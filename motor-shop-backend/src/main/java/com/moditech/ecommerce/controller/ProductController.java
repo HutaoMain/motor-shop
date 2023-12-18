@@ -1,10 +1,13 @@
 package com.moditech.ecommerce.controller;
 
 import com.moditech.ecommerce.dto.ProductDto;
+import com.moditech.ecommerce.dto.ProductVariationsDto;
 import com.moditech.ecommerce.dto.TopSoldProductDto;
 import com.moditech.ecommerce.model.Product;
+import com.moditech.ecommerce.model.ProductVariations;
 import com.moditech.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    private List<Product> getAllProducts() {
+    private List<TopSoldProductDto> getAllProducts() {
         return productService.getAllProducts();
     }
 
@@ -64,9 +67,45 @@ public class ProductController {
     }
 
     @GetMapping("/isAd")
-    private ResponseEntity<List<Product>> getProductsByIsAd() {
-        List<Product> product = productService.getProductsByIsAd();
+    private ResponseEntity<List<TopSoldProductDto>> getProductsByIsAd() {
+        List<TopSoldProductDto> product = productService.getProductsByIsAd();
         return ResponseEntity.ok(product);
     }
 
+    @DeleteMapping("/{productId}/variations/{variationName}")
+    public ResponseEntity<String> removeProductVariation(
+            @PathVariable String productId,
+            @PathVariable String variationName) {
+        try {
+            productService.removeProductVariation(productId, variationName);
+            return ResponseEntity.ok("Product variation removed successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{productId}/variations/{oldVariationName}")
+    public ResponseEntity<String> updateProductVariation(
+            @PathVariable String productId,
+            @PathVariable String oldVariationName,
+            @RequestBody ProductVariationsDto updatedVariation) {
+        try {
+            productService.updateProductVariation(productId, oldVariationName, updatedVariation);
+            return ResponseEntity.ok("Product variation updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{productId}/variations/{variationName}")
+    public ResponseEntity<ProductVariations> getProductVariationByName(
+            @PathVariable String productId,
+            @PathVariable String variationName) {
+        try {
+            ProductVariations variation = productService.getProductVariationByName(productId, variationName);
+            return ResponseEntity.ok(variation);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }

@@ -4,7 +4,8 @@ export interface LoginInterface {
 }
 
 export interface RegistrationInterface {
-  fullname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 }
@@ -100,6 +101,7 @@ export interface ConversationInterface {
   name: string;
   description: string;
   createdAt: Date;
+  messages: IMessage[];
 }
 
 export interface IMessage {
@@ -108,6 +110,8 @@ export interface IMessage {
   message: string;
   isUser: boolean;
   createdAt: Date;
+  isUserReadTheMessage: boolean;
+  isAdminReadTheMessage: boolean;
 }
 
 export interface IAppointment {
